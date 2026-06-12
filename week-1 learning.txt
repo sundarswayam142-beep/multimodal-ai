@@ -1,4 +1,8 @@
 #STUDIED BASICS OF PYTHON
+----------------------------------------------
+chapter1 : setup and basics of python syntax coded first python line...
+chapter2 : variables,strings and datatypes (wrote some functional codes to understand the concept)
+chapter 3 : 
 
 
 #DID SETUP OF GIT GITHUB 
