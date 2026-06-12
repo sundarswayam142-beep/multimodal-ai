@@ -1,0 +1,8 @@
+#STUDIED BASICS OF PYTHON
+
+
+#DID SETUP OF GIT GITHUB 
+learned git commands runned it on vs code editor
+
+
+
