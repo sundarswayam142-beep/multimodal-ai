@@ -2,11 +2,21 @@
 ----------------------------------------------
 chapter1 : setup and basics of python syntax coded first python line...
 chapter2 : variables,strings and datatypes (wrote some functional codes to understand the concept)
-chapter 3 : 
-
+chapter 3 : strings and python commands ( learned string length 
+chapter 4: list and tuples 
 
 #DID SETUP OF GIT GITHUB 
+-----------------------------------------------
 learned git commands runned it on vs code editor
+git commands learned:
+git init
+git status to check
+git add . 
+git add <name of files>
+git commmit -m "change msg"
+git push origin name
+git clone <link of git hub profile>
+
 
 
 
