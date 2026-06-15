@@ -11,10 +11,13 @@ learned git commands runned it on vs code editor
 git commands learned:
 git init
 git status to check
+mkdir <name of directory>
+cd .. {to get out of directory}
+cd <filename> {to get into that file}
 git add . 
 git add <name of files>
 git commmit -m "change msg"
-git push origin name
+git push origin main
 git clone <link of git hub profile>
 
 
