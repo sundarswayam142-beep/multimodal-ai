@@ -1,6 +1,7 @@
 def max_subarray_sum(arr, k):
     if len(arr) < k:
         return "Invalid array size"
+
     
     window_sum = sum(arr[:k])
     max_sum = window_sum
