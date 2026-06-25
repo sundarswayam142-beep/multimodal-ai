@@ -1,0 +1,16 @@
+WEEK 4 NOTES: BREAKING DOWN LARGE LANGUAGE MODELS AND AGENT SYSTEMS
+====================================================================
+Finished the course pipeline by moving into generative AI architecture and contextual interfaces.
+
+1. PIPELINES AND TRAINING PHASES
+   - Pre-training: Processing massive datasets of web text documents to build basic next-token statistical reasoning models.
+   - Fine-Tuning: Narrowing down behaviors by giving raw models customized instructions so they act like interactive assistants.
+   - Logarithmic Rules: Traced how baseline language capabilities align with hardware size, network weights, and token counts.
+
+2. EMBEDDINGS AND CONTEXT HANDLING
+   - Semantic Matching: Figured out how tools convert phrases into dimensional spatial vectors (like Ada-002) to match document segments using simple similarity metrics.
+   - Vector Databases: Realized that instead of modifying core network properties, we can look up context blocks on demand from memory vaults to bypass token limits.
+
+3. FRAMEWORK INTEGRATION AND INTERACTIVE TOOLS
+   - Building Interfaces: Combined the Chainlit streaming environment with structured code to create chat clones instantly.
+   - Autonomous ReAct Loops: Connected prompt generation trees to computational tool kits like execution shells and localized calculators to solve logical tasks.
