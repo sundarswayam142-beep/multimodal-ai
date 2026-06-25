@@ -1,5 +1,6 @@
 class BatchScanner:
     def __init__(self, batch_id, readings):
+        
         self.batch_id = batch_id
         self.readings = readings
 
