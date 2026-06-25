@@ -18,8 +18,5 @@ class BatchScanner:
                 return "Unstable"
         return "Stable"
 
-sensor_data = [92, 88, 45, 90, 32, 95]
-inspector = BatchScanner("BATCH-404", sensor_data)
-
 print(inspector.get_failed_count(85))
 print(inspector.check_stability())
