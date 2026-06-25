@@ -1,0 +1,13 @@
+WEEK 2 NOTES: WRANGLING DATA AND LEARNING MULTI-CLASS ML CONCEPTS
+==================================================================
+This week was all about getting hands-on with data structures and handling data anomalies.
+
+1. DEEP DIVE INTO PANDAS DATA LAYERS
+   - Series vs. DataFrames: Spent time understanding that a Series is just a labeled 1D array while a DataFrame maps out columns and rows nicely like a spreadsheet.
+   - Cleaning Messy Data: Figured out how to manage missing records using .dropna() to completely boot bad rows and .fillna() to swap missing elements out with zero or average numbers.
+   - The 'inplace' Parameter Pitfall: Realized that using 'inplace=True' mutates the actual dataframe directly instead of spitting out a fresh copy. Skipping it is usually safer to avoid random side-effects.
+
+2. MACHINE LEARNING UP TO BAGGING ENSEMBLES
+   - Features & Classifications: Looked over traditional datasets (like Iris) to analyze how dimensional metrics (lengths/widths) distinguish distinct target classes.
+   - Getting Summary Stats: Used .describe() to get quick calculations on statistical distributions like standard deviations and mid-percentiles.
+   - Bagging (Bootstrap Aggregation): Learnt how training multiple base estimators on random subsets of data helps lower the variance of high-risk predictive models.
