@@ -1,0 +1,12 @@
+WEEK 3 NOTES: STEPPING INTO DEEP LEARNING ARCHITECTURES AND CNNS
+================================================================
+Shifted away from simple statistics into multi-layered neural models this week.
+
+1. FOUNDATIONAL REASONING NETWORKS
+   - Layer Connections: Got an intuitive grasp of matrix multiplications inside a neural network, tracking how raw feature shapes scale as they move forward.
+   - Adjusting Weights: Realized that training models is essentially a game of trial and error where gradients nudge internal parameters closer to target predictions.
+
+2. CONVOLUTIONAL LAYERS FOR IMAGE PROCESSING
+   - Feature Maps: Explored how sliding convolutional filters extract small spatial textures like lines, edges, and metallic micro-fractures directly from image feeds.
+   - Pooling Layers: Figured out that Max Pooling simply picks out the most intense feature markers from a region, downsizing parameters so my machine doesn't choke.
+   - Flattening & Output: Unrolled internal tensor arrays into linear shapes to run classification probabilities at the final bottleneck layer.
