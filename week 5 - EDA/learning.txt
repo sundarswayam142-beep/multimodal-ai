@@ -1,0 +1,47 @@
+Week 5 — Exploratory Data Analysis (EDA) & Data Cleaning
+
+This week covered the essential pre-modeling stage of any data science
+workflow: understanding and preparing raw data before analysis or ML.
+
+Data Cleaning:
+- Inspected datasets using .info(), .describe(), .head() to understand
+  structure, types, and get a first look at the data.
+- Detected missing values with .isnull().sum() and handled them using
+  mean/mode imputation (fillna) or row removal (dropna) depending on
+  whether the missing data was in a critical column.
+- Identified and removed duplicate rows using .duplicated() and
+  .drop_duplicates().
+- Corrected data types (e.g. converting strings to datetime, coercing
+  invalid values to NaN with pd.to_numeric).
+- Learned the IQR (Interquartile Range) method for outlier detection:
+  values outside [Q1 - 1.5*IQR, Q3 + 1.5*IQR] are flagged and filtered.
+- Standardized text data (stripping whitespace, lowercasing) and
+  cleaned up inconsistent category labels (e.g. "usa" vs "USA").
+- Practiced renaming/reformatting column names for consistency.
+
+Exploratory Data Analysis:
+- Used .describe(include='all') to summarize both numeric and
+  categorical columns together.
+- Visualized distributions with histograms + KDE plots to check for
+  skew, normality, or bimodal patterns.
+- Built correlation heatmaps to see relationships between numeric
+  features (values near +1/-1 indicate strong correlation).
+- Used boxplots and violin plots to visually spot outliers and compare
+  distributions across categories.
+- Explored categorical data with value_counts(), countplots, and
+  crosstabs between two categorical columns.
+- Practiced groupby aggregations (mean, median, std, count) to compare
+  metrics across categories.
+- Learned skewness and kurtosis as numeric measures of distribution
+  shape, complementing the visual plots.
+
+Key takeaway: EDA and cleaning aren't a one-time step — they're an
+iterative loop. Every visualization or stat check can surface a new
+cleaning issue (bad category label, outlier, wrong dtype), which
+then needs to be fixed before the analysis is trustworthy.
+
+References:
+- EDA in Python Cheat Sheet (Notion):
+  https://app.notion.com/p/Exploratory-Data-Analysis-EDA-in-Python-Cheat-Sheet-56340a36bc7a82fb9e42016bd5ff4264?source=copy_link
+- Data Cleaning tutorial (Google Colab):
+  https://colab.research.google.com/drive/1Uv1W59iKGwPFrqKas1mJnnAYv72_RcnA?usp=sharing
