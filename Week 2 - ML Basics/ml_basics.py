@@ -4,7 +4,7 @@ import numpy as np
 
 # Create synthetic Industrial Quality Data matching the tutorial concepts
 raw_data = {
-    'Item_ID':,
+
     'Defect_Area_mm': [1.2, np.nan, 0.5, 3.4, np.nan],
     'Inspection_Status': ['Pass', 'Fail', 'Pass', 'Fail', 'Pass']
 }
