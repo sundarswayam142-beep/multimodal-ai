@@ -21,7 +21,7 @@ and receive a professional inspection report generated locally by Llama 3.2
 - **Streamlit web interface** — upload, detect, and review results in one
   page
 
-## Setup
+# Setup
 
 ### 1. Install Python dependencies
 ```bash
