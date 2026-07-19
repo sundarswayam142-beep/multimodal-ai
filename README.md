@@ -1,16 +1,106 @@
-# multimodal-ai
-<br>
-this is my first git repository
-📌 Weekly Milestone Logs & Resources
+# Multi-Modal AI System for Industrial Quality Assurance
 
-🔹 Week 1: Python Basics & Git WorkflowCore Topics: Advanced programming syntax, object-oriented concepts, and version control standards.Work Folder: week-1-python-basics/Completed Progress:Created a structured learning.txt log covering strings, sliding window logics, and core Git commands.Added python-dsa-advanced.py to practice high-level indexing scripts.Added python-oop-principles.py to structure quality check classes.
+An AI-powered inspection tool for steel surface defect detection. Upload an
+image, get defects detected with bounding boxes via a trained YOLOv8 model,
+and receive a professional inspection report generated locally by Llama 3.2
+(via Ollama).
 
+## Features
 
-🔹 Week 2: Machine Learning Foundations & AnalyticsCore Topics: Statistical analysis, column manipulation, missing data transformations, and bagging ensembles.Resource Reference: Used video playlists up to Bagging and data wrangling guidelines.Work Folder: week-2-ml-basics/Completed Progress:Wrote down a comprehensive text file focusing on Pandas frameworks and ensemble systems.Created pandas-data-wrangling.py to simulate real-world defect log corrections.Built machine-learning-models.py to implement a customized threshold classifier from scratch.
+- **Defect detection** — YOLOv8m trained on the NEU-DET dataset (6 classes:
+  crazing, inclusion, patches, pitted surface, rolled-in scale, scratches)
+- **Adaptive preprocessing** — automatically detects whether an uploaded
+  image is already in NEU-DET format (small, near-grayscale crops) or a
+  general photo, and routes accordingly:
+  - **NEU-format images** → direct single-pass inference
+  - **General photos** → split into overlapping tiles, each individually
+    contrast-normalized and sharpened, run through the model, then merged
+    back via weighted box fusion
+- **Local LLM reporting** — Llama 3.2 (via Ollama) turns raw detections into
+  a structured inspection report: summary, severity, recommended actions
+- **Streamlit web interface** — upload, detect, and review results in one
+  page
 
-🔹 Week 3: Deep Learning Networks & Convolutional BlocksCore Topics: Optimization weight adjustments, multi-dimensional matrix layers, and feature maps.Resource Reference: Covered PyTorch mechanics up to the specified deep convolutional layers.Work Folder: week-3-deep-learning-cnn/Completed Progress:Documented core activation theories, data pooling boundaries, and backpropagation models in the folder log.Coded pytorch-tensor-basics.py to configure and map multi-channel camera array dimensions.Coded cnn-image-classification.py to run executable visual layer evaluation pipelines.
+## Setup
 
-🔹 Week 4: Large Language Models & Tool AgentsCore Topics: Context window mechanics, semantic space database searches, and continuous UI chains.Resource Reference: Analyzed modular completion systems and automated assistant patterns.Work Folder: week-4-intro-to-llm/Completed Progress:Prepared an integration breakdown outlining prompt structures and recursive agent tasks.Programmed openai-api-integration.py to construct prompt parameters and parse inner payload arrays safely.Programmed chainlit-llm-agent.py to orchestrate isolated sessions and track autonomous live messaging responses.
+### 1. Install Python dependencies
+```bash
+pip install streamlit ultralytics pillow ollama
+```
 
+### 2. Install and configure Ollama
+Download from [ollama.com/download](https://ollama.com/download), then:
+```bash
+ollama pull llama3.2
+```
+Ollama runs as a background service; ensure it's running before starting the
+app (`ollama serve` if it hasn't auto-started).
 
+### 3. Place the trained model
+Copy `best.pt` (the trained YOLOv8m weights) into the project root, next to
+`app.py`.
 
+### 4. Run
+```bash
+streamlit run app.py
+```
+Opens at `http://localhost:8501`.
+
+## Model configuration
+
+| Setting | Value | Reasoning |
+|---|---|---|
+| Base model | YOLOv8m (medium) | Best-performing variant of nano/small/medium/large tested; medium and large were compared in an ensemble, but the plain single-model medium checkpoint outperformed both ensembling and test-time augmentation in practice (see "Experiments" below) |
+| Confidence — NEU-format images | 0.15 | Validated against real training-distribution images; genuine defects in this model's output commonly score 15–40%, so the YOLO default of 0.25 would discard true positives |
+| Confidence — tiled/general photos | 0.35 | A low threshold combined with an already out-of-domain image produces near-uniform false positives across plain, defect-free regions; a stricter bar is used here to keep precision usable |
+| Tile size / overlap | 200×200, 30% | Matches NEU-DET's native crop size; overlap ensures defects near a tile boundary are still fully captured in at least one tile |
+| Box merging | Weighted box fusion | Overlapping detections from neighboring tiles are confidence-averaged into a single fused box, rather than picking one and discarding the rest (plain NMS) or leaving duplicates |
+
+## Training performance
+
+Trained for 40 epochs on NEU-DET. Final validation metrics:
+- mAP50: 0.79
+- mAP50-95: 0.49
+- Precision: ~0.69
+- Recall: ~0.75
+
+The confusion matrix shows most misclassifications land in "background"
+(missed detections) rather than confusing one defect class for another —
+i.e. the model's main weakness is under-detection (recall), not
+misclassification.
+
+## Experiments tried (and why they were rejected)
+
+In the interest of transparency, several inference-time accuracy
+improvements were tested and *did not* improve results, so were not kept:
+
+- **Test-time augmentation (TTA)** — reduced detection confidence on
+  validated test cases rather than improving it
+- **Multi-checkpoint ensembling** (nano/small/medium/large combined) —
+  weaker checkpoints diluted confidence from the stronger medium model;
+  even medium+large alone underperformed the single medium model
+- **Looser NMS / higher tile overlap** — increased duplicate/fragmented
+  detections without adding real signal
+
+The final configuration (single YOLOv8m model, split confidence thresholds,
+weighted box fusion) was the empirically best-performing setup found.
+
+## Known limitation
+
+The model performs reliably on images matching the NEU-DET training
+distribution (validated via test images from the original dataset — see
+demo video). Performance is visibly weaker on general photographs that
+differ in lighting, scale, or capture angle — in particular, the
+**scratches** class was not reliably detected on out-of-domain test photos,
+despite reasonable validation-set performance (~75% correct on scratches
+in the confusion matrix). This is a domain generalization gap common to
+models trained on curated/lab-condition datasets, rather than a defect in
+the detection pipeline itself. Addressing it fully would require additional
+training data covering more varied real-world capture conditions.
+
+## Submission contents
+
+- `app.py` — Streamlit application
+- `best.pt` — trained YOLOv8m weights
+- `README.md` — this file
+- Demo video — 2–5 minute walkthrough of the working application
